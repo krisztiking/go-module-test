@@ -25,6 +25,7 @@ type Value struct {
 
 type Resp struct {
 	Reader *bufio.Reader
+	Tester string
 }
 
 func NewResp(rd io.Reader) *Resp {
