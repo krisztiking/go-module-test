@@ -24,16 +24,16 @@ type Value struct {
 }
 
 type Resp struct {
-	reader *bufio.Reader
+	Reader *bufio.Reader
 }
 
 func NewResp(rd io.Reader) *Resp {
-	return &Resp{reader: bufio.NewReader(rd)}
+	return &Resp{Reader: bufio.NewReader(rd)}
 }
 
 func (r *Resp) readLine() (line []byte, n int, err error) {
 	for {
-		b, err := r.reader.ReadByte()
+		b, err := r.Reader.ReadByte()
 		if err != nil {
 			return nil, 0, err
 		}
@@ -60,7 +60,7 @@ func (r *Resp) readInteger() (x int, n int, err error) {
 }
 
 func (r *Resp) Read() (Value, error) {
-	_type, err := r.reader.ReadByte()
+	_type, err := r.Reader.ReadByte()
 
 	if err != nil {
 		return Value{}, err
@@ -87,7 +87,7 @@ func (r *Resp) readString() (Value, error) {
 	var puff []byte
 
 	for {
-		x, err := r.reader.ReadByte()
+		x, err := r.Reader.ReadByte()
 		if err != nil {
 			return v, err
 		}
@@ -137,7 +137,7 @@ func (r *Resp) readBulk() (Value, error) {
 
 	bulk := make([]byte, len)
 
-	r.reader.Read(bulk)
+	r.Reader.Read(bulk)
 
 	v.Bulk = string(bulk)
 
