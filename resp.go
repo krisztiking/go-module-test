@@ -1,4 +1,4 @@
-package myresp
+package myResp
 
 import (
 	"bufio"
